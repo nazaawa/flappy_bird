@@ -10,7 +10,7 @@ import 'package:flappy_bird/game/flame_bird_game.dart';
 import 'package:flutter/animation.dart';
 
 class Bird extends SpriteGroupComponent<BirdMovement>
-    with HasGameRef<FlappyBirdGame> {
+    with HasGameRef<FlappyBirdGame>, CollisionCallbacks {
   @override
   FutureOr<void> onLoad() async {
     final birdMidFlap = await gameRef.loadSprite(Assets.birdMidFlap);
@@ -30,7 +30,20 @@ class Bird extends SpriteGroupComponent<BirdMovement>
   }
 
   void gameOver() {
+    gameRef.overlays.add("gameOverScreen");
     gameRef.pauseEngine();
+    game.isHit = true;
+  }
+
+  void reset() {
+    position = Vector2(50, gameRef.size.y / 2 - size.y / 2);
+  }
+
+  @override
+  void onCollisionStart(
+      Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollisionStart(intersectionPoints, other);
+    gameOver();
   }
 
   void fly() {

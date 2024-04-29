@@ -7,9 +7,10 @@ import 'package:flappy_bird/components/ground.dart';
 import 'package:flappy_bird/components/pipe_group.dart';
 import 'package:flappy_bird/game/config.dart';
 
-class FlappyBirdGame extends FlameGame with TapDetector {
+class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   late Bird bird;
   Timer interval = Timer(Config.pipeInterval, repeat: true);
+  bool isHit = false;
 
   @override
   Future<void> onLoad() async {
@@ -27,7 +28,6 @@ class FlappyBirdGame extends FlameGame with TapDetector {
     interval.update(dt);
   }
 
- 
   @override
   void onTap() {
     super.onTap();
