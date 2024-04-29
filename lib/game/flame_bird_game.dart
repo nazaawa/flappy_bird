@@ -6,6 +6,7 @@ import 'package:flappy_bird/components/background.dart';
 import 'package:flappy_bird/components/bird.dart';
 import 'package:flappy_bird/components/ground.dart';
 import 'package:flappy_bird/components/pipe_group.dart';
+import 'package:flappy_bird/game/bird_movement.dart';
 import 'package:flappy_bird/game/config.dart';
 import 'package:flutter/animation.dart';
 
@@ -29,18 +30,7 @@ class FlappyBirdGame extends FlameGame with TapDetector {
     interval.update(dt);
   }
 
-  void fly() {
-    add(
-      MoveByEffect(
-        Vector2(0, Config.gravity),
-        EffectController(
-          duration: 0.2 , 
-          curve: Curves.decelerate,
-        ),
-      ),
-    );
-  }
-
+ 
   @override
   void onTap() {
     super.onTap();
